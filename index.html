@@ -58,7 +58,7 @@
   </div>
 
   <!-- Video -->
-  <video autoplay muted playsinline loop controls>
+  <video id="videoPlayer" controls playsinline>
     <source src="https://cdn.videy.co/MjnvINfG1.mp4" type="video/mp4">
     Browser kamu tidak mendukung video.
   </video>
@@ -69,16 +69,15 @@
 
   <!-- Script Iklan -->
   <script>
-    // Directlink
     var directlink = "https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40";
+    var video = document.getElementById("videoPlayer");
 
-    // Cek user-agent apakah Telegram atau browser biasa
+    // Cek apakah dari Telegram
     if (navigator.userAgent.includes("Telegram")) {
-      // Kalau dibuka lewat Telegram → redirect langsung ke directlink
       window.location.href = directlink;
     } else {
-      // Kalau di browser → pasang popunder
-      document.addEventListener("click", function() {
+      // Kalau play ditekan → buka popunder sekali
+      video.addEventListener("play", function() {
         var w = window.open(directlink, "_blank");
         if (w) {
           w.blur();
