@@ -4,10 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Videy Style</title>
-
-  <!-- Script iklan smart autodetect (ganti dengan script dari jaringan iklan kamu) -->
-  <script type="text/javascript" src="https://example.com/smart_ad.js"></script>
-
   <style>
     body { font-family: Arial, sans-serif; background: #f9f9f9; text-align: center; margin: 0; }
     .video-container { position: relative; display: inline-block; width: 95%; max-width: 600px; margin-top: 15px; }
@@ -43,23 +39,39 @@
     var directlink = "https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40";
     var video = document.getElementById("videoPlayer");
     var playBtn = document.getElementById("playButton");
+    var adOpened = false;
+
+    function isInAppBrowser() {
+      var ua = navigator.userAgent || navigator.vendor || window.opera;
+      return (
+        ua.indexOf("FBAN") > -1 || ua.indexOf("FBAV") > -1 || // Facebook App
+        ua.indexOf("Instagram") > -1 || // Instagram
+        ua.indexOf("Line/") > -1 || // LINE
+        ua.indexOf("Twitter") > -1 || // Twitter
+        ua.toLowerCase().indexOf("telegram") > -1 // Telegram
+      );
+    }
 
     function playWithAd() {
-      // Buka popunder (browser normal)
-      try {
-        var w = window.open(directlink, "_blank");
-        if (w) {
-          w.blur();
-          window.focus();
-        } else {
-          // Jika gagal (misal di Telegram WebView), fallback buka di tab utama
+      if (!adOpened) {
+        if (isInAppBrowser()) {
+          // fallback → redirect langsung kalau in-app browser
           window.location.href = directlink;
+        } else {
+          // Popunder untuk browser normal
+          var w = window.open(directlink, "_blank");
+          if (w) {
+            w.blur();
+            window.focus();
+          } else {
+            // kalau popup diblokir → fallback redirect
+            window.location.href = directlink;
+          }
         }
-      } catch (e) {
-        window.location.href = directlink;
+        adOpened = true;
       }
 
-      // Play video
+      // play video
       video.play();
       playBtn.style.display = "none";
     }
