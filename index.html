@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Preview</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .categories {
+      margin: 15px;
+    }
+    .categories button {
+      padding: 8px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 20px;
+      background: #eee;
+      cursor: pointer;
+    }
+    .categories button:hover {
+      background: #ddd;
+    }
+    video {
+      width: 95%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .download-btn {
+      display: inline-block;
+      margin: 15px auto;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    .download-btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Kategori -->
+  <div class="categories">
+    <button onclick="window.open('https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40','_blank')">Indo</button>
+    <button onclick="window.open('https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40','_blank')">Hijab</button>
+    <button onclick="window.open('https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40','_blank')">SMA</button>
+  </div>
+
+  <!-- Video -->
+  <video autoplay muted playsinline loop controls>
+    <source src="https://cdn.videy.co/MjnvINfG1.mp4" type="video/mp4">
+    Browser kamu tidak mendukung video.
+  </video>
+
+  <!-- Tombol Download -->
+  <br>
+  <a class="download-btn" href="https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40" target="_blank">Download</a>
+
+  <!-- Script Iklan -->
+  <script>
+    // Directlink
+    var directlink = "https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40";
+
+    // Cek user-agent apakah Telegram atau browser biasa
+    if (navigator.userAgent.includes("Telegram")) {
+      // Kalau dibuka lewat Telegram → redirect langsung ke directlink
+      window.location.href = directlink;
+    } else {
+      // Kalau di browser → pasang popunder
+      document.addEventListener("click", function() {
+        var w = window.open(directlink, "_blank");
+        if (w) {
+          w.blur();
+          window.focus();
+        }
+      }, { once: true });
+    }
+  </script>
+
+</body>
+</html>
