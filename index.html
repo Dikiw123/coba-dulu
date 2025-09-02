@@ -3,87 +3,65 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video Preview</title>
+  <title>Videy Style</title>
+
+  <!-- Script iklan smart autodetect (ganti dengan script dari jaringan iklan kamu) -->
+  <script type="text/javascript" src="https://example.com/smart_ad.js"></script>
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      text-align: center;
-      margin: 0;
-      padding: 0;
+    body { font-family: Arial, sans-serif; background: #f9f9f9; text-align: center; margin: 0; }
+    .video-container { position: relative; display: inline-block; width: 95%; max-width: 600px; margin-top: 15px; }
+    video { width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); background: black; }
+    .play-overlay {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.6); border-radius: 50%; width: 80px; height: 80px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
     }
-    .categories {
-      margin: 15px;
-    }
-    .categories button {
-      padding: 8px 15px;
-      margin: 5px;
-      border: none;
-      border-radius: 20px;
-      background: #eee;
-      cursor: pointer;
-    }
-    .categories button:hover {
-      background: #ddd;
-    }
-    video {
-      width: 95%;
-      max-width: 600px;
-      border-radius: 10px;
-      margin-top: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    .play-overlay:after { content: "▶"; font-size: 36px; color: white; margin-left: 5px; }
     .download-btn {
-      display: inline-block;
-      margin: 15px auto;
-      padding: 10px 20px;
-      background: #007bff;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+      display: inline-block; margin: 15px auto; padding: 10px 20px;
+      background: #007bff; color: #fff; text-decoration: none;
+      border-radius: 8px; font-weight: bold;
     }
-    .download-btn:hover {
-      background: #0056b3;
-    }
+    .download-btn:hover { background: #0056b3; }
   </style>
 </head>
 <body>
 
-  <!-- Kategori -->
-  <div class="categories">
-    <button onclick="window.open('https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40','_blank')">Indo</button>
-    <button onclick="window.open('https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40','_blank')">Hijab</button>
-    <button onclick="window.open('https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40','_blank')">SMA</button>
+  <div class="video-container">
+    <video id="videoPlayer" playsinline controlsList="nodownload">
+      <source src="https://cdn.videy.co/MjnvINfG1.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+    <div class="play-overlay" id="playButton" onclick="playWithAd()"></div>
   </div>
 
-  <!-- Video -->
-  <video id="videoPlayer" controls playsinline>
-    <source src="https://cdn.videy.co/MjnvINfG1.mp4" type="video/mp4">
-    Browser kamu tidak mendukung video.
-  </video>
-
-  <!-- Tombol Download -->
   <br>
   <a class="download-btn" href="https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40" target="_blank">Download</a>
 
-  <!-- Script Iklan -->
   <script>
     var directlink = "https://fortunatelychastise.com/pfykf9cuw4?key=1b323d318c04708ff0afeead0ffbfc40";
     var video = document.getElementById("videoPlayer");
+    var playBtn = document.getElementById("playButton");
 
-    // Cek apakah dari Telegram
-    if (navigator.userAgent.includes("Telegram")) {
-      window.location.href = directlink;
-    } else {
-      // Kalau play ditekan → buka popunder sekali
-      video.addEventListener("play", function() {
+    function playWithAd() {
+      // Buka popunder (browser normal)
+      try {
         var w = window.open(directlink, "_blank");
         if (w) {
           w.blur();
           window.focus();
+        } else {
+          // Jika gagal (misal di Telegram WebView), fallback buka di tab utama
+          window.location.href = directlink;
         }
-      }, { once: true });
+      } catch (e) {
+        window.location.href = directlink;
+      }
+
+      // Play video
+      video.play();
+      playBtn.style.display = "none";
     }
   </script>
 
